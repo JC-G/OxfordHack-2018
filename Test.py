@@ -7,3 +7,6 @@ Created on Thu Nov 22 19:51:37 2018
 
 for i in range(10):
     print("GitHub xd")
+    
+
+#I can access the file too -Charalampos
