@@ -12,7 +12,7 @@ emotion_model_path = 'models/_mini_XCEPTION.102-0.66.hdf5'
 # loading models
 face_detection = cv2.CascadeClassifier(detection_model_path)
 emotion_classifier = load_model(emotion_model_path, compile=False)
-EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised", "neutral"]
+EMOTIONS = ["angry", "disgust", "scared", "happy", "sad", "surprised", "neutral"]
 
 
 # feelings_faces = []
@@ -23,15 +23,13 @@ EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised", "neutral"]
 cv2.namedWindow('your_face')
 camera = cv2.VideoCapture(0)
 
+
 def toReturn(resList):
 
     if resList.index(max(resList)) == 3:
         return (1)
     else:
         return(0)
-
-
-
 
 
 while True:
