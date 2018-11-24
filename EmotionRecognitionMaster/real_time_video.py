@@ -6,17 +6,6 @@ from keras.models import load_model
 import numpy as np
 from pathlib import Path
 
-# parameters for loading data and images
-detection_model_path = "haarcascade_files/haarcascade_frontalface_default.xml"
-emotion_model_path = 'models/_mini_XCEPTION.102-0.66.hdf5'
-
-
-# hyper-parameters for bounding boxes shape
-# loading models
-face_detection = cv2.CascadeClassifier(detection_model_path)
-emotion_classifier = load_model(emotion_model_path, compile=False)
-EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised",
- "neutral"]
 
 
 def toReturn(lst):
@@ -33,10 +22,23 @@ def toReturn(lst):
 #for index, emotion in enumerate(EMOTIONS):
    # feelings_faces.append(cv2.imread('emojis/' + emotion + '.png', -1))
 
-cv2.namedWindow('your_face')
-camera = cv2.VideoCapture(0)
 
-def mainbit():
+
+def mainbit(addloc = ""):
+    # parameters for loading data and images
+    detection_model_path = addloc + "haarcascade_files/haarcascade_frontalface_default.xml"
+    emotion_model_path = addloc + 'models/_mini_XCEPTION.102-0.66.hdf5'
+
+
+    # hyper-parameters for bounding boxes shape
+    # loading models
+    face_detection = cv2.CascadeClassifier(detection_model_path)
+    emotion_classifier = load_model(emotion_model_path, compile=False)
+    EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised",
+    "neutral"]
+
+    cv2.namedWindow('your_face')
+    camera = cv2.VideoCapture(0)
     # starting video streaming
     
     while True:
@@ -100,9 +102,10 @@ def mainbit():
             yield ((0,0))
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+    camera.release()
+    cv2.destroyAllWindows()
 
-for val in mainbit():
-    print(val)
+
 
 #    for c in range(0, 3):
 #        frame[200:320, 10:130, c] = emoji_face[:, :, c] * \
@@ -112,5 +115,4 @@ for val in mainbit():
 
     
 
-camera.release()
-cv2.destroyAllWindows()
+
