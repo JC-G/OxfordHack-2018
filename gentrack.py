@@ -125,16 +125,29 @@ def run():
         pts = run()
     else:
         colormode(255)
-        screensize(512, 512)
-        setup(512, 512)
+        screensize(800, 800)
         up()
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
+        mapwidth = max([pt[0] for pt in pts]) - min([pt[0] for pt in pts])
+        mapheight = max([pt[1] for pt in pts]) - min([pt[1] for pt in pts])
+        squarelength = max(mapheight,mapwidth)
+
+        dx = (max([pt[0] for pt in pts]) + min([pt[0] for pt in pts]))/2
+        dy = (max([pt[1] for pt in pts]) + min([pt[1] for pt in pts]))/2
         for i in range(len(pts)):
-            pts[i][0] /= 3
-            pts[i][1] /= 3
+            pts[i][0] -= dx
+            pts[i][1] -= dy
+
+        penwidth = 60
+    
+        for i in range(len(pts)):
+            pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*4)
+            pts[i][1] = pts[i][1] / squarelength * (800 - penwidth*4)
+        print(squarelength)
+        
         speed(0)
         goto(pts[0])
-        width(60)
+        width(penwidth)
         pen(pencolor=(104,104,104))
         down()
         for item in pts:
@@ -152,7 +165,15 @@ def run():
         ts = turtle.getscreen()
         ts.getcanvas().postscript(file = "pts.eps")
 
-        img = Image.open("pts.eps")
+        img = Image.open("pts.eps").convert('RGBA')
+        img = img.resize((1024,1024), Image.ANTIALIAS)
+        pixeldata = list(img.getdata())
+
+        for i,pixel in enumerate(pixeldata):
+            if pixel[:3] == (255,255,255):
+                pixeldata[i] = (255,255,255,0)
+
+        img.putdata(pixeldata)
         img.save("track.png","png")
 
         return pts
