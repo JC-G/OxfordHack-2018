@@ -9,7 +9,8 @@ import numpy as np
 from turtle import *
 import turtle
 from tkinter import *
-import canvasvg
+from PIL import Image
+from glob import glob
 
 # below is the code to generate the track -- don't touch if at all possible
 def dist(pta,ptb = [0,0]):
@@ -138,7 +139,13 @@ def run():
             goto(item)
         goto(pts[0])
         ts = turtle.getscreen()
-        ts.getcanvas().postscript(file = "pts.png")
+        ts.getcanvas().postscript(file = "pts.eps")
+
+        img = Image.open("pts.eps")
+        img.show()
+        img.save("track","png")
+
+
         return pts
 
 run()
