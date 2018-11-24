@@ -124,25 +124,24 @@ def run():
     if selfIntersects(pts):
         pts = run()
     else:
+        colormode(255)
         setup(width=80000, height=80000)
-        screensize(bg="green")
-        fillcolor("")
         up()
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         for i in range(len(pts)):
             pts[i][0] /= 2
             pts[i][1] /= 2
-        speed(0)
+        speed(1)
         goto(pts[0])
         width(40)
-        pen(pencolor="grey")
+        pen(pencolor=(104,104,104))
         down()
         for item in pts:
             goto(item)
         goto(pts[0])
         up()
         width(0.5)
-        pen(pencolor="white")
+        pen(pencolor=(200,200,200))
         down()
         for item in pts:
             goto(item)
@@ -153,7 +152,7 @@ def run():
         ts.getcanvas().postscript(file = "pts.eps")
 
         img = Image.open("pts.eps")
-        img.save("track.png","png")
+        img.save("trck.png","png")
 
         return pts
 
