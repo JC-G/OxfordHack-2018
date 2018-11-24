@@ -5,7 +5,8 @@ import numpy
 import pygame
 import random
 import math
-
+textureArray = {}
+scsz = (800,600)
 class Sprite3d:
     def __init__(self,fileName,x,y,z,r):
         self.imageData = makeTexture(fileName)
@@ -18,8 +19,21 @@ class Sprite3d:
     def move(self,dx,dy,dz):
         self.pos = (self.x+dx,self.y+dy,self.z+dz)
 
+def enablePerspective():
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(60.0, scsz[0]/scsz[1], 0.001, 1000.0)
+    glMatrixMode(GL_MODELVIEW)
+
+def enableFlat():
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glMatrixMode(GL_MODELVIEW)
 
 def makeTexture(fileName):
+    if fileName in textureArray:
+        print("IN")
+        return textureArray[fileName]
     image = Image.open(fileName)
     imageData = numpy.array(list(image.getdata()), numpy.uint8)
 
@@ -34,7 +48,8 @@ def makeTexture(fileName):
     szy = image.size[1]
     print(szx,szy)
     image.close()
-    return (textureID,szx,szy)
+    textureArray[fileName] = (textureID,szx,szy)
+    return textureArray[fileName]
 
 def renderSprite(spr):
     glBindTexture(GL_TEXTURE_2D,spr.imageData[0])
@@ -61,6 +76,8 @@ def renderSprite(spr):
     glEnd()
 
 def initGLPG(screen_size):
+    global scsz
+    scsz = screen_size
     pygame.init()
     screen = pygame.display.set_mode(screen_size, pygame.HWSURFACE | pygame.OPENGL | pygame.DOUBLEBUF)
 
@@ -71,9 +88,6 @@ def initGLPG(screen_size):
 
     viewport = glGetIntegerv(GL_VIEWPORT)
 
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    gluPerspective(60.0, float(viewport[2]) / float(viewport[3]), 0.1, 1000.0)
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
@@ -87,11 +101,26 @@ def initGLPG(screen_size):
     glAlphaFunc(GL_GREATER,0.001)
     return screen
 def drawTerrain(terr):
-    pass
+    glBindTexture(GL_TEXTURE_2D,terr.img)
+    glBegin(GL_QUADS)
+    glTexCoord(0,0)
+    glVertex3f(-1,0,-1)
+
+    glTexCoord(0,1)
+    glVertex3f(-1,0,1)
+
+    glTexCoord(1,1)
+    glVertex3f(1,0,1)
+
+    glTexCoord(1,0)
+    glVertex3f(1,0,-1)
+    glEnd()
+
+
 
 
 if __name__ == "__main__":
-    screen = initGLPG((800,600))
+    screen = initGLPG((640,480))
     theta = 0
     ml = True
     s = Sprite3d("tree.png",0,0,0,1)
@@ -111,6 +140,8 @@ if __name__ == "__main__":
         glClearColor(0.5, 0.5, 0.5, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity( )
+        enablePerspective()
+        #enableFlat()
         gluLookAt(10*math.cos(theta), 10, 10*math.sin(theta), 0, 0, 0, 0, 1, 0)
         theta+=0.01
         for t in trees:
