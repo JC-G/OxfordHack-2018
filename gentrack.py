@@ -29,7 +29,6 @@ def run():
     pts = []
     for i in range(len(points[hull.vertices,0])):
         pts.append([points[hull.vertices,0][i],points[hull.vertices,1][i]])
-    print(pts)
 
     def pushApart(ps):
         dst = 20
@@ -68,6 +67,9 @@ def run():
     pts = rset
 
     def fixAngles(ps):
+
+        angl = 60
+
         for i in range(len(ps)):
             prev = (i-1)%len(ps)
             next = (i+1)%len(ps)
@@ -84,8 +86,8 @@ def run():
             nx /= nl
             ny /= nl
             a = atan2(px*ny-py*nx,px*nx+py*ny)
-            if abs(a) > 5/9*pi:
-                nA = 100 * a / abs(a) * pi / 180
+            if abs(a) > angl * pi / 180:
+                nA = angl * a / abs(a) * pi / 180
                 diff = nA - a
                 c = cos(diff)
                 s = sin(diff)
@@ -126,15 +128,27 @@ def run():
     else:
         colormode(255)
         screensize(800, 800)
-        setup(800, 800)
         up()
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
+        mapwidth = max([pt[0] for pt in pts]) - min([pt[0] for pt in pts])
+        mapheight = max([pt[1] for pt in pts]) - min([pt[1] for pt in pts])
+        squarelength = max(mapheight,mapwidth)
+
+        dx = (max([pt[0] for pt in pts]) + min([pt[0] for pt in pts]))/2
+        dy = (max([pt[1] for pt in pts]) + min([pt[1] for pt in pts]))/2
         for i in range(len(pts)):
-            pts[i][0] /= 1.75
-            pts[i][1] /= 1.75
+            pts[i][0] -= dx
+            pts[i][1] -= dy
+
+        penwidth = 70
+    
+        for i in range(len(pts)):
+            pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*4.2)
+            pts[i][1] = pts[i][1] / squarelength * (800 - penwidth*4.2)
+        
         speed(0)
         goto(pts[0])
-        width(80)
+        width(penwidth)
         pen(pencolor=(104,104,104))
         down()
         for item in pts:
@@ -150,12 +164,20 @@ def run():
         up()
         hideturtle()
         ts = turtle.getscreen()
-        ts.getcanvas().postscript(file = "pts.eps")
+        ts.getcanvas().postscript(file = "track.eps")
 
-        img = Image.open("pts.eps")
+        img = Image.open("track.eps").convert('RGBA')
+        img = img.resize((1024,1024), Image.ANTIALIAS)
+        pixeldata = list(img.getdata())
+
+        for i,pixel in enumerate(pixeldata):
+            if pixel[:3] == (255,255,255):
+                pixeldata[i] = (86,176,0)
+
+        img.putdata(pixeldata)
         img.save("track.png","png")
 
         return pts
 
 if __name__ == "__main__":
-    print(run())
+    run()
