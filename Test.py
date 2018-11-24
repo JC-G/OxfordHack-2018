@@ -10,8 +10,5 @@ for i in range(10):
     print("GitHub xd")    
 print("Lyndon can also see the file")
 
-#I can access the file too -Charalampos
-# can you see this guys?
-# lolhfxdyufd
 
 print("...")
