@@ -67,6 +67,9 @@ def run():
     pts = rset
 
     def fixAngles(ps):
+
+        angl = 60
+
         for i in range(len(ps)):
             prev = (i-1)%len(ps)
             next = (i+1)%len(ps)
@@ -83,8 +86,8 @@ def run():
             nx /= nl
             ny /= nl
             a = atan2(px*ny-py*nx,px*nx+py*ny)
-            if abs(a) > 5/9*pi:
-                nA = 100 * a / abs(a) * pi / 180
+            if abs(a) > angl * pi / 180:
+                nA = angl * a / abs(a) * pi / 180
                 diff = nA - a
                 c = cos(diff)
                 s = sin(diff)
@@ -137,7 +140,7 @@ def run():
             pts[i][0] -= dx
             pts[i][1] -= dy
 
-        penwidth = 60
+        penwidth = 70
     
         for i in range(len(pts)):
             pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*4.2)
