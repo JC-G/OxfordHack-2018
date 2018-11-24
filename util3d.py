@@ -42,6 +42,8 @@ def makeTexture(fileName):
     glBindTexture(GL_TEXTURE_2D, textureID)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0)
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST)
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAX_LEVEL,GL_NEAREST)
     print(image.size)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.size[0], image.size[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData)
     szx = image.size[0]
