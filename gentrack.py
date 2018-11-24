@@ -169,7 +169,7 @@ def run():
 
         for i,pixel in enumerate(pixeldata):
             if pixel[:3] == (255,255,255):
-                pixeldata[i] = (100,255,100)
+                pixeldata[i] = (86,176,0)
 
         img.putdata(pixeldata)
         img.save("track.png","png")
