@@ -20,13 +20,32 @@ from kivy.properties import BooleanProperty
 Builder.load_string('''
 <Menu>:
     BoxLayout:
+        canvas.before: 
+            Color: 
+                rgb: 1, 1, 1 , 1
+            Rectangle: 
+                pos: self.pos 
+                size: self.size 
         orientation: 'vertical'
+        Image:
+            size: 24, 24
+            source: 'sad.png'
         Button:
             text: 'Start Game'
             font_size: 40
+            background_color: 1, 0, 0 , 1
         Button:
             text: 'High Scores'
             font_size: 40
+            background_color: 1, 0, 0 , 1
+        Button:
+            text: 'Settings'
+            font_size: 40
+            background_color: 1, 0, 0 , 1
+        Button:
+            text: 'Play Call Me Maybe'
+            font_size: 40
+            background_color: 1, 0, 0 , 1
 ''')
 
 
@@ -38,14 +57,10 @@ class Menu(GridLayout):
         self.cols = 1
 
 
-
-
 class MyApp(App):
 
     def build(self):
         return Menu()
-
-
 
 
 if __name__ == '__main__':
