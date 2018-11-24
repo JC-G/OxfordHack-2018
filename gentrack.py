@@ -125,15 +125,16 @@ def run():
         pts = run()
     else:
         colormode(255)
-        setup(width=512, height=512)
+        screensize(800, 800)
+        setup(800, 800)
         up()
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         for i in range(len(pts)):
-            pts[i][0] /= 3
-            pts[i][1] /= 3
+            pts[i][0] /= 1.75
+            pts[i][1] /= 1.75
         speed(0)
         goto(pts[0])
-        width(40)
+        width(80)
         pen(pencolor=(104,104,104))
         down()
         for item in pts:
@@ -155,3 +156,6 @@ def run():
         img.save("track.png","png")
 
         return pts
+
+if __name__ == "__main__":
+    print(run())
