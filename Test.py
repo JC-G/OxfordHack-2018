@@ -3,7 +3,9 @@
 Created on Thu Nov 22 19:51:37 2018
 @author: josep
 """
-
+import pygame
+import OpenGL
+import numpy
 for i in range(10):
     print("GitHub xd")    
 print("Lyndon can also see the file")
