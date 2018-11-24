@@ -17,7 +17,7 @@ our_player = Player.Player()
 theTerrain = Map.Terrain()
 clock = pygame.time.Clock()
 trees = []
-
+EMOTION = True
 
 class controlThread(threading.Thread):
     def __init__(self,name,counter):
@@ -43,23 +43,33 @@ while main_loop:
     #switch depending on game state
     if game_state == "playing":
         theVal = rtv.value
-
-        turnMagnitude = theVal[1]
+        turnMagnitude = 0
         forwards = 0
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
+        if EMOTION:
+            turnMagnitude = theVal[1]*0.3
+            if theVal[0] == 1:
+                forwards = -1
+            if theVal[0] ==0:
+                forwards = 0
+            if theVal[0] == -1:
+                forwards = 3
 
-            forwards = -1
-        if keys[pygame.K_s]:
-            forwards = 1
-        # if keys[pygame.K_a]:
-        #
-        #     turnMagnitude = -1
-        # if keys[pygame.K_d]:
-        #     turnMagnitude = 1
+        else:
+
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w]:
+
+                forwards = -1
+            if keys[pygame.K_s]:
+                forwards = 3
+            if keys[pygame.K_a]:
+
+                turnMagnitude = -1
+            if keys[pygame.K_d]:
+                turnMagnitude = 1
 
         #print(keys , turnMagnitude)
-        our_player.move(turnMagnitude*0.005,forwards*0.01)
+        our_player.move(turnMagnitude*0.01,forwards*0.01)
         glClearColor(0.5, 0.5, 0.5, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
