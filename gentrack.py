@@ -7,7 +7,11 @@ from scipy.spatial import *
 import matplotlib.pyplot as plt
 import numpy as np
 from turtle import *
+import turtle
+from tkinter import *
+import canvasvg
 
+# below is the code to generate the track -- don't touch if at all possible
 def dist(pta,ptb = [0,0]):
     return sqrt((pta[0]-ptb[0])**2 + (pta[1]-ptb[1])**2)
 
@@ -115,6 +119,8 @@ def run():
                     return True
         return False
 
+    #all the code above does the hard work -- don't touch it if at all possible.
+
     if selfIntersects(pts):
         pts = run()
     else:
@@ -131,8 +137,8 @@ def run():
         for item in pts:
             goto(item)
         goto(pts[0])
-        wait = sys.stdin.readline()
-        getscreen().getcanvas().postscript(file=str(pts)+'.ps')
+        ts = turtle.getscreen()
+        ts.getcanvas().postscript(file = "pts.png")
         return pts
 
 run()
