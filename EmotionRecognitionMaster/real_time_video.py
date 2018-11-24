@@ -101,7 +101,7 @@ def captureFrame():
                         # width of screen is 300
 
                         acc = 0
-                        errprop = 1/6
+                        errprop = 1/15
                         err = 600 * errprop
                         if fX+fW/2 > 600/2 + err/2:
                             acc = (600/2 + err/2 - (fX+fW/2))/(600-err)*20

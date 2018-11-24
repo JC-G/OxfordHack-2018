@@ -44,22 +44,22 @@ while main_loop:
     if game_state == "playing":
         theVal = rtv.value
 
-        turnMagnitude = theVal[1]
+        turnMagnitude = 0#theVal[1]
         forwards = 0
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
 
             forwards = -1
         if keys[pygame.K_s]:
-            forwards = 1
-        # if keys[pygame.K_a]:
-        #
-        #     turnMagnitude = -1
-        # if keys[pygame.K_d]:
-        #     turnMagnitude = 1
+            forwards = 3
+        if keys[pygame.K_a]:
+
+            turnMagnitude = -1
+        if keys[pygame.K_d]:
+            turnMagnitude = 1
 
         #print(keys , turnMagnitude)
-        our_player.move(turnMagnitude*0.005,forwards*0.01)
+        our_player.move(turnMagnitude*0.01,forwards*0.01)
         glClearColor(0.5, 0.5, 0.5, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
