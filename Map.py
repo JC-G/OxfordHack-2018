@@ -7,4 +7,5 @@ class Terrain:
         gentrack.run()
         self.pixelData = gentrackdata.getPixelData()
         self.img = util3d.makeTexture("track.png")[0]
+        print(len(self.pixelData))
 

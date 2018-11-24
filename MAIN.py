@@ -17,7 +17,7 @@ our_player = Player.Player()
 theTerrain = Map.Terrain()
 clock = pygame.time.Clock()
 trees = []
-EMOTION = True
+EMOTION = False
 
 class controlThread(threading.Thread):
     def __init__(self,name,counter):
@@ -32,7 +32,7 @@ theThread = controlThread("a",1)
 theThread.start()
 for x in range(10):
     trees.append(util3d.Sprite3d("tree.png",0.03*random.randint(0,100)-.5,0,0.03*random.randint(0,100)-.5,.1))
-
+playerTree = util3d.Sprite3d("tree.png",0,0,0,.05)
 
 while main_loop:
     clock.tick(60)
@@ -43,6 +43,8 @@ while main_loop:
     #switch depending on game state
     if game_state == "playing":
         theVal = rtv.value
+        print(theTerrain.pixelData[int((1+our_player.position[0])*512)][int((1+our_player.position[1])*512)])
+
         turnMagnitude = 0
         forwards = 0
         if EMOTION:
@@ -83,6 +85,8 @@ while main_loop:
         util3d.drawTerrain(theTerrain)
         for t in trees:
             util3d.renderSprite(t)
+        playerTree.setPos(our_player.position[0],0,our_player.position[1])
+        util3d.renderSprite(playerTree)
         pygame.display.flip()
 
 
