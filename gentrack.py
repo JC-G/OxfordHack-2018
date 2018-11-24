@@ -157,7 +157,7 @@ def run():
             goto(item)
         goto(pts[0])
         up()
-        width(0.5)
+        width(2)
         pen(pencolor=(200,200,200))
         down()
         for item in pts:
