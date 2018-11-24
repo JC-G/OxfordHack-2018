@@ -14,7 +14,7 @@ class Player:
             #return
         speed = 0.01
         turnSpeed = 0.01
-        max_speed = 0.05
+        max_speed = 0.1
 
 
         #self.theta = math.atan2(self.velocity[1],self.velocity[0])
@@ -25,7 +25,7 @@ class Player:
         #print(self.acceleration,self.velocity,self.position)
 
 
-        self.theta -=turnMagnitude*math.sqrt(math.fabs(self.speed))*numpy.sign(self.speed)*25# math.atan2(self.velocity[1],self.velocity[0])
+        self.theta -=turnMagnitude*math.sqrt(math.fabs(self.speed))*numpy.sign(self.speed)*40# math.atan2(self.velocity[1],self.velocity[0])
 
         dt=1/60
         self.speed += forwards*dt

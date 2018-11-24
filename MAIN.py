@@ -44,7 +44,7 @@ while main_loop:
     if game_state == "playing":
         theVal = rtv.value
 
-        turnMagnitude = 0#theVal[1]
+        turnMagnitude = theVal[1]
         forwards = 0
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
