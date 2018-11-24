@@ -125,13 +125,13 @@ def run():
         pts = run()
     else:
         colormode(255)
-        setup(width=80000, height=80000)
+        setup(width=512, height=512)
         up()
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         for i in range(len(pts)):
-            pts[i][0] /= 2
-            pts[i][1] /= 2
-        speed(1)
+            pts[i][0] /= 3
+            pts[i][1] /= 3
+        speed(0)
         goto(pts[0])
         width(40)
         pen(pencolor=(104,104,104))
@@ -152,7 +152,7 @@ def run():
         ts.getcanvas().postscript(file = "pts.eps")
 
         img = Image.open("pts.eps")
-        img.save("trck.png","png")
+        img.save("track.png","png")
 
         return pts
 
