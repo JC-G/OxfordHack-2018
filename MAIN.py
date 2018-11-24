@@ -79,7 +79,7 @@ while main_loop:
 
         glLoadIdentity()
 
-        gluLookAt(our_player.position[0]+math.cos(our_player.theta)/7, .05, our_player.position[1]+math.sin(our_player.theta)/7, our_player.position[0], 0, our_player.position[1], 0, 1,0)
+        gluLookAt(our_player.position[0]+math.cos(our_player.theta)/10, .05, our_player.position[1]+math.sin(our_player.theta)/10, our_player.position[0]-math.cos(our_player.theta)/30, 0, our_player.position[1]-math.sin(our_player.theta)/30, 0, 1,0)
         #glRotate(theta,0,1,0)
         theta+=0.03
         util3d.drawTerrain(theTerrain)
