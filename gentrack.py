@@ -19,7 +19,7 @@ def run():
     points = np.random.rand(numOfPts, 2)   # 30 random points in 2-D
     for i in range(numOfPts):
         points[i][0] = (points[i][0]-0.5)*screenx
-        points[i][1] = (points[i][1]-0.5)*screenx
+        points[i][1] = (points[i][1]-0.5)*screeny
     hull = ConvexHull(points)
 
     pts = []
@@ -118,18 +118,21 @@ def run():
     if selfIntersects(pts):
         pts = run()
     else:
+        setup(width=1024, height=1024)
         up()
-        # original size of canvas is 500 x 500 -- want it to be 200 x 200
+        # original size of canvas is 500 x 500 -- want it to be 250 x 250
         for i in range(len(pts)):
             pts[i][0] /= 2
             pts[i][1] /= 2
         goto(pts[0])
-        width(10)
+        width(40)
+        pen(pencolor="grey")
         down()
         for item in pts:
             goto(item)
         goto(pts[0])
         wait = sys.stdin.readline()
+        getscreen().getcanvas().postscript(file=str(pts)+'.ps')
         return pts
 
 run()
