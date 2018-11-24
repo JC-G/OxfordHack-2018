@@ -48,6 +48,7 @@ _ = plt.axis("off")
 
 
 def annotate_image(image_url):
+
     response = requests.post(face_api_url, params=params, headers=headers, json={"url": image_url})
     faces = response.json()
 
