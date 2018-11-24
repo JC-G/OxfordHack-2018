@@ -6,7 +6,7 @@ Created on Thu Nov 22 19:51:37 2018
 """
 
 for i in range(10):
-    print("GitHub xd")
-    
+    print("GitHub xd")    
+print("Lyndon can also see the file")
 
 #I can access the file too -Charalampos
