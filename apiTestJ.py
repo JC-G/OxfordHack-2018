@@ -5,7 +5,7 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64
 headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': 'f3d87078c5a4ecf837ca9e70056f12c',
+    'Ocp-Apim-Subscription-Key': '{key}',
 }
 
 params = urllib.parse.urlencode({
