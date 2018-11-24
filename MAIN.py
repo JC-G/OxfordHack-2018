@@ -21,7 +21,8 @@ for x in range(100):
 
 while main_loop:
     clock.tick(60)
-    #
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             main_loop = False
@@ -44,7 +45,7 @@ while main_loop:
             turnMagnitude = 1
 
         print(keys , turnMagnitude)
-        our_player.move(turnMagnitude*0.1,forwards*0.001)
+        our_player.move(turnMagnitude*0.1,forwards*0.01)
         glClearColor(0.5, 0.5, 0.5, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
