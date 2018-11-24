@@ -14,8 +14,8 @@ __status__ = "Prototype"
 import requests
 
 # Replace 'KEY_1' with your subscription key as a string
-subscription_key = 'b97583ec7ca1457487c495e27771f67a'
-filename = 'girlface.jpg'
+subscription_key = '4b22c8e5dc634420bf942bfb9d53447e'
+filename = 'download.jpg'
 # Replace or verify the region.
 #
 # You must use the same region in your REST API call as you used to obtain your subscription keys.

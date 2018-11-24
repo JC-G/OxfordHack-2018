@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
 
     trees = []
-    for x in range(100):
+    for x in range(10):
         trees.append(Sprite3d("tree.png",0.1*random.randint(0,100)-5,0,0.1*random.randint(0,100)-5,1))
 
     while ml:
