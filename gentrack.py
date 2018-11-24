@@ -155,5 +155,3 @@ def run():
         img.save("track.png","png")
 
         return pts
-
-run()
