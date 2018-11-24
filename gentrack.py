@@ -100,7 +100,7 @@ def run():
         return ps
 
 
-    iter = 1
+    iter = 5
     for asdf in range(iter):
         pts = fixAngles(pts)
         pts = pushApart(pts)
@@ -109,6 +109,7 @@ def run():
         for i in range(len(ps)-2):
             pta = ps[i]
             ptb = ps[i+1]
+            pta = [(pta[0]+ptb[0])/2, (pta[1]+ptb[1])/2]
             ptm = [(pta[0]+ptb[0])/2, (pta[1]+ptb[1])/2]
             for j in range(i+2, len(ps)-1):
                 ptc = ps[j]
@@ -127,8 +128,7 @@ def run():
         pts = run()
     else:
         colormode(255)
-        screensize(800, 800)
-        up()
+        screensize(0, 0)
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         mapwidth = max([pt[0] for pt in pts]) - min([pt[0] for pt in pts])
         mapheight = max([pt[1] for pt in pts]) - min([pt[1] for pt in pts])
@@ -140,13 +140,15 @@ def run():
             pts[i][0] -= dx
             pts[i][1] -= dy
 
-        penwidth = 70
+        penwidth = 80
     
         for i in range(len(pts)):
-            pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*4.2)
-            pts[i][1] = pts[i][1] / squarelength * (800 - penwidth*4.2)
+            pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*3)
+            pts[i][1] = pts[i][1] / squarelength * (800 - penwidth*3)
         
-        speed(0)
+        hideturtle()
+        up()
+        turtle.speed(0)
         goto(pts[0])
         width(penwidth)
         pen(pencolor=(104,104,104))
@@ -162,7 +164,6 @@ def run():
             goto(item)
         goto(pts[0])
         up()
-        hideturtle()
         ts = turtle.getscreen()
         ts.getcanvas().postscript(file = "track.eps")
 
