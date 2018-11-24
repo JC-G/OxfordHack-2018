@@ -29,7 +29,6 @@ def run():
     pts = []
     for i in range(len(points[hull.vertices,0])):
         pts.append([points[hull.vertices,0][i],points[hull.vertices,1][i]])
-    print(pts)
 
     def pushApart(ps):
         dst = 20
@@ -141,9 +140,8 @@ def run():
         penwidth = 60
     
         for i in range(len(pts)):
-            pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*4)
-            pts[i][1] = pts[i][1] / squarelength * (800 - penwidth*4)
-        print(squarelength)
+            pts[i][0] = pts[i][0] / squarelength * (800 - penwidth*4.2)
+            pts[i][1] = pts[i][1] / squarelength * (800 - penwidth*4.2)
         
         speed(0)
         goto(pts[0])
@@ -163,15 +161,15 @@ def run():
         up()
         hideturtle()
         ts = turtle.getscreen()
-        ts.getcanvas().postscript(file = "pts.eps")
+        ts.getcanvas().postscript(file = "track.eps")
 
-        img = Image.open("pts.eps").convert('RGBA')
+        img = Image.open("track.eps").convert('RGBA')
         img = img.resize((1024,1024), Image.ANTIALIAS)
         pixeldata = list(img.getdata())
 
         for i,pixel in enumerate(pixeldata):
             if pixel[:3] == (255,255,255):
-                pixeldata[i] = (255,255,255,0)
+                pixeldata[i] = (100,255,100)
 
         img.putdata(pixeldata)
         img.save("track.png","png")
@@ -179,4 +177,4 @@ def run():
         return pts
 
 if __name__ == "__main__":
-    print(run())
+    run()
