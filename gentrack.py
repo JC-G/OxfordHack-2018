@@ -125,16 +125,16 @@ def run():
         pts = run()
     else:
         colormode(255)
-        screensize(800, 800)
-        setup(800, 800)
+        screensize(512, 512)
+        setup(512, 512)
         up()
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         for i in range(len(pts)):
-            pts[i][0] /= 1.75
-            pts[i][1] /= 1.75
+            pts[i][0] /= 3
+            pts[i][1] /= 3
         speed(0)
         goto(pts[0])
-        width(80)
+        width(60)
         pen(pencolor=(104,104,104))
         down()
         for item in pts:
