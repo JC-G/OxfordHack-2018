@@ -8,7 +8,8 @@ import math
 import random
 import EmotionRecognitionMaster.real_time_video as rtv
 import threading
-score  =0
+
+score = 0
 
 #main loop
 def startGame():
