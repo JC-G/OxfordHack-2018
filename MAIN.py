@@ -8,15 +8,18 @@ import math
 import random
 import EmotionRecognitionMaster.real_time_video as rtv
 import threading
-<<<<<<< HEAD
-
-score = 0
-=======
 import json
 score  =0
->>>>>>> 0a6083ea0fc47acd4faa80b4179c066870fae5b0
 
 #main loop
+def push_score(result):
+
+    data = {}
+    data["players"]=[]
+    data["players"].append({"name":result[0],"score":result[1]})
+    with open('highscores.txt', 'w') as out:
+        json.dump(data, out)
+        
 def startGame():
     global score
     main_loop = True
@@ -32,6 +35,8 @@ def startGame():
     EMOTION = False
     theFaces = util3d.FaceDisplay()
     theCar = util3d.Car()
+    pygame.mixer.music.load("dubstep.wav")
+    pygame.mixer.music.play(-1)
 
     goodSound = pygame.mixer.Sound("collect.wav")
     badSound = pygame.mixer.Sound("wrong.wav")
@@ -179,10 +184,4 @@ if __name__ == "__main__":
     startGame()
 
 
-def push_score(result):
 
-    data = {}
-    data["players"]=[]
-    data["players"].append({"name":result[0],"score":result[1]})
-    with open('highscores.txt', 'w') as out:
-        json.dump(data, out)
