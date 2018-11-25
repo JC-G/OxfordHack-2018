@@ -11,6 +11,12 @@ from tkinter import *
 from PIL import Image
 from glob import glob
 
+turtle.begin_fill()    # ADD THIS LINE TO RUN IT IN MACOS
+# pygame.init()
+
+
+storedResults = []
+
 # below is the code to generate the track -- don't touch if at all possible
 def dist(pta,ptb = [0,0]):
     return sqrt((pta[0]-ptb[0])**2 + (pta[1]-ptb[1])**2)
@@ -19,6 +25,8 @@ screenx = 500
 screeny = 500
 
 def run():
+    global storedResults
+    pts = []
     numOfPts = 30
     points = np.random.rand(numOfPts, 2)   # 30 random points in 2-D
     for i in range(numOfPts):
@@ -26,7 +34,6 @@ def run():
         points[i][1] = (points[i][1]-0.5)*screeny
     hull = ConvexHull(points)
 
-    pts = []
     for i in range(len(points[hull.vertices,0])):
         pts.append([points[hull.vertices,0][i],points[hull.vertices,1][i]])
 
@@ -128,7 +135,7 @@ def run():
         pts = run()
     else:
         colormode(255)
-        screensize(0, 0)
+        screensize(800, 800)
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         mapwidth = max([pt[0] for pt in pts]) - min([pt[0] for pt in pts])
         mapheight = max([pt[1] for pt in pts]) - min([pt[1] for pt in pts])
@@ -157,7 +164,7 @@ def run():
             goto(item)
         goto(pts[0])
         up()
-        width(0.5)
+        width(2)
         pen(pencolor=(200,200,200))
         down()
         for item in pts:
@@ -168,7 +175,8 @@ def run():
         ts.getcanvas().postscript(file = "track.eps")
 
         img = Image.open("track.eps").convert('RGBA')
-        img = img.resize((1024,1024), Image.ANTIALIAS)
+        imgwidth, imgheight = img.size
+        img = img.resize((1024,1024), Image.NEAREST)
         pixeldata = list(img.getdata())
 
         for i,pixel in enumerate(pixeldata):
@@ -178,7 +186,15 @@ def run():
         img.putdata(pixeldata)
         img.save("track.png","png")
 
+        for i in range(len(pts)):
+            pts[i][0] = pts[i][0] /imgwidth*1024/(800-1.5*penwidth)
+            pts[i][1] = -pts[i][1] /imgheight*1024/(800-1.5*penwidth)
+
+        storedResults += pts 
+
         return pts
 
+
 if __name__ == "__main__":
-    run()
+    print(run())
+    print(storedResults)

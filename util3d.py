@@ -7,17 +7,20 @@ import random
 import math
 textureArray = {}
 scsz = (800,600)
+
+def distance2(p1,p2):
+    return (p1[0]-p2[0])**2 + (p1[2]-p2[1])**2
 class Sprite3d:
     def __init__(self,fileName,x,y,z,r):
         self.imageData = makeTexture(fileName)
-
+        self.collected = False
         self.pos = (x,y,z)
         self.radius = r
         self.relativeHeight = r*self.imageData[2]/self.imageData[1]
     def setPos(self,x,y,z):
         self.pos = (x,y,z)
     def move(self,dx,dy,dz):
-        self.pos = (self.x+dx,self.y+dy,self.z+dz)
+        self.pos = (self.pos[0]+dx,self.pos[1]+dy,self.pos[2]+dz)
 
 def enablePerspective():
     glMatrixMode(GL_PROJECTION)
@@ -42,6 +45,8 @@ def makeTexture(fileName):
     glBindTexture(GL_TEXTURE_2D, textureID)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0)
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST)
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAX_LEVEL,GL_NEAREST)
     print(image.size)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.size[0], image.size[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData)
     szx = image.size[0]
@@ -54,22 +59,22 @@ def makeTexture(fileName):
 def renderSprite(spr):
     glBindTexture(GL_TEXTURE_2D,spr.imageData[0])
     glBegin(GL_QUADS)
-    glTexCoord(0,0)
-    glVertex3f(spr.pos[0]-spr.radius,spr.pos[1],spr.pos[2])
     glTexCoord(0,1)
+    glVertex3f(spr.pos[0]-spr.radius,spr.pos[1],spr.pos[2])
+    glTexCoord(0,0)
     glVertex3f(spr.pos[0]-spr.radius,spr.pos[1]+spr.relativeHeight,spr.pos[2])
-    glTexCoord(1,1)
-    glVertex3f(spr.pos[0]+spr.radius,spr.pos[1]+spr.relativeHeight,spr.pos[2])
     glTexCoord(1,0)
+    glVertex3f(spr.pos[0]+spr.radius,spr.pos[1]+spr.relativeHeight,spr.pos[2])
+    glTexCoord(1,1)
     glVertex3f(spr.pos[0]+spr.radius,spr.pos[1],spr.pos[2])
 
-    glTexCoord(0,0)
-    glVertex3f(spr.pos[0],spr.pos[1],spr.pos[2]-spr.radius)
     glTexCoord(0,1)
+    glVertex3f(spr.pos[0],spr.pos[1],spr.pos[2]-spr.radius)
+    glTexCoord(0,0)
     glVertex3f(spr.pos[0],spr.pos[1]+spr.relativeHeight,spr.pos[2]-spr.radius)
-    glTexCoord(1,1)
-    glVertex3f(spr.pos[0],spr.pos[1]+spr.relativeHeight,spr.pos[2]+spr.radius)
     glTexCoord(1,0)
+    glVertex3f(spr.pos[0],spr.pos[1]+spr.relativeHeight,spr.pos[2]+spr.radius)
+    glTexCoord(1,1)
     glVertex3f(spr.pos[0],spr.pos[1],spr.pos[2]+spr.radius)
 
 
