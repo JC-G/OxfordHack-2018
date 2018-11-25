@@ -83,6 +83,7 @@ Builder.load_string('''
                 size: self.size
                 source: 'DAACTUALBG.png'
         orientation: 'vertical'
+        pos_hint: {'center_x': 0.675, 'center_y': 0.525}
         Label:
         Button:
             text: 'Back to Main Menu'
@@ -100,15 +101,14 @@ Builder.load_string('''
                 size: self.size
                 source: 'DAACTUALBG.png'
         orientation: 'vertical' 
-        Label:  
         Label:
-            text:'                                      Credits to: Joseph Chambers-Graham, Gabriela van Bergen, Lyndon Hon Fan, Charalampos Kokkalis'
-            shorten: True
-            size_hint_y: None
-            text_size: self.width, None
+            text: """Created by:\\n Joseph Chambers-Graham \\n Gabriela van Bergen \\n Lyndon Fan \\n Charalampos Kokkalis \\n\\n Credits to: \\nOmar Ayman for creating the Emotion Recognition Program\\nGustavo Maciel for the procedural generation of the track"""
+            shorten: False
+            text_size: self.width, self.height * 4
+            halign: 'center'
+            valign: 'center'
             height: self.texture_size[1]
-        Label:
-    BoxLayout:    
+            font_size: 50
         Button:
             text: 'Back to Main Menu'
             font_size: 40
