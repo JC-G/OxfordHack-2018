@@ -19,7 +19,7 @@ def push_score(result):
     data["players"].append({"name":result[0],"score":result[1]})
     with open('highscores.txt', 'w') as out:
         json.dump(data, out)
-        
+
 def startGame():
     global score
     main_loop = True
