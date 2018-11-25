@@ -49,6 +49,7 @@ class Terrain:
         if (self.next_node[1]-pos[1])**2 + (self.next_node[0]-pos[0])**2 < 0.3:
             self.next_i+=1
             if self.next_i == len(self.nodes):
+                print("Lap count + 1")
                 self.lap_count+=1
                 MAIN.score += 3
                 if self.lap_count == 3:

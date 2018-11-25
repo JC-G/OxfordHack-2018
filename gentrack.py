@@ -171,6 +171,7 @@ def run():
             goto(item)
         goto(pts[0])
         dot(40, (200,200,200))
+        print(pts[0][0]/800, pts[0][1]/800)
         up()
         ts = turtle.getscreen()
         ts.getcanvas().postscript(file = "track.eps")

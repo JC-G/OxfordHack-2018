@@ -8,8 +8,13 @@ import math
 import random
 import EmotionRecognitionMaster.real_time_video as rtv
 import threading
+<<<<<<< HEAD
+
+score = 0
+=======
 import json
 score  =0
+>>>>>>> 0a6083ea0fc47acd4faa80b4179c066870fae5b0
 
 #main loop
 def startGame():
