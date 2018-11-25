@@ -33,7 +33,7 @@ def startGame():
     our_player.position = (theTerrain.nodes[0][0],theTerrain.nodes[0][1])
     our_player.theta = math.atan2(-theTerrain.nodes[1][1]+theTerrain.nodes[0][1],-theTerrain.nodes[1][0]+theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
-    EMOTION = False
+    EMOTION = True
     theFaces = util3d.FaceDisplay()
     theCar = util3d.Car()
     pygame.mixer.music.load("dubstep.wav")
