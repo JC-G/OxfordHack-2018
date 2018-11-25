@@ -83,7 +83,6 @@ Builder.load_string('''
                 size: self.size
                 source: 'DAACTUALBG.png'
         orientation: 'vertical'
-        pos_hint: {'center_x': 0.675, 'center_y': 0.525}
         Label:
         Button:
             text: 'Back to Main Menu'
