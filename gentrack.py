@@ -168,7 +168,7 @@ def run():
         ts.getcanvas().postscript(file = "track.eps")
 
         img = Image.open("track.eps").convert('RGBA')
-        img = img.resize((1024,1024), Image.ANTIALIAS)
+        img = img.resize((1024,1024), Image.NEAREST)
         pixeldata = list(img.getdata())
 
         for i,pixel in enumerate(pixeldata):
