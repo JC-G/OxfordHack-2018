@@ -106,18 +106,12 @@ sm.add_widget(Settings(name='settings'))
 sm.add_widget(HighScores(name='highscores'))
 
 
-
-
-
-
 class Menu(GridLayout):
 
     def __init__(self, **kwargs):
 
         super(Menu, self).__init__(**kwargs)
         self.cols = 3
-
-
 
 
 class MyApp(App):

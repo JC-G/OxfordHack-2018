@@ -11,6 +11,9 @@ from tkinter import *
 from PIL import Image
 from glob import glob
 
+turtle.begin_fill()    # ADD THIS LINE TO RUN IT IN MACOS
+# pygame.init()
+
 
 storedResults = []
 
@@ -190,6 +193,7 @@ def run():
         storedResults += pts 
 
         return pts
+
 
 if __name__ == "__main__":
     print(run())
