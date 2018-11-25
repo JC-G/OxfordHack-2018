@@ -7,9 +7,37 @@ import random
 import math
 textureArray = {}
 scsz = (800,600)
-
+class Car:
+    def __init__(self):
+        self.imgData = makeTexture("")
 def distance2(p1,p2):
     return (p1[0]-p2[0])**2 + (p1[2]-p2[1])**2
+
+class FaceDisplay:
+    def __init__(self):
+        self.happyTexture = makeTexture("happyface.png")[0]
+        self.sadTexture = makeTexture("sadface.png")[0]
+        self.neutralTexture = makeTexture("neutralface.png")[0]
+
+    def draw(self,mode):
+        if mode == "happy":
+            glBindTexture(GL_TEXTURE_2D,self.happyTexture)
+        if mode == "neutral":
+            glBindTexture(GL_TEXTURE_2D,self.neutralTexture)
+        if mode == "sad":
+            glBindTexture(GL_TEXTURE_2D,self.sadTexture)
+
+        glBegin(GL_QUADS)
+
+        glTexCoord(0,0)
+        glVertex3f(-0.95,0.95,0)
+        glTexCoord(1,0)
+        glVertex3f(-0.85,0.95,0)
+        glTexCoord(1,1)
+        glVertex3f(-0.85,0.95-0.1*scsz[0]/scsz[1],0)
+        glTexCoord(0,1)
+        glVertex3f(-0.95,0.95-0.1*scsz[0]/scsz[1],0)
+        glEnd()
 class Sprite3d:
     def __init__(self,fileName,x,y,z,r):
         self.imageData = makeTexture(fileName)
@@ -31,6 +59,7 @@ def enablePerspective():
 def enableFlat():
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
+
     glMatrixMode(GL_MODELVIEW)
 
 def makeTexture(fileName):
