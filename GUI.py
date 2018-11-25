@@ -5,6 +5,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 
+
 Builder.load_string('''
 <Menu>:
     orientation:'horizontal'
@@ -43,7 +44,7 @@ Builder.load_string('''
             on_press: root.manager.current = 'settings'
             size_hint: .4, .4
         Button:
-            text: 'Play Call Me Maybe'
+            text: 'Credits'
             font_size: 40
             background_color: 1, 0, 0 , 1
             on_press: root.manager.current = 'credits'
@@ -118,9 +119,35 @@ Builder.load_string('''
 
 
 class Menu(Screen):
+
     def start(self):
-        print("STarting")
+        print("Starting")
         startGame()
+
+
+    def highs(self):
+
+        names = []
+        scores = []
+        with open('highscores.txt') as json_file:
+            data = json.load(json_file)
+            for p in data['players']:
+                names.append(p["name"]
+                scores.append(p["score"])
+
+            best = []
+            for i in range(5):
+
+                ind = scores.index(max(scores))
+                best.append([names[ind],scores[ind]])
+                names.pop(ind)
+                scores.pop(ind))
+
+            returnText = ''
+            for j in best:
+
+                returnText = returnText + str(best.index(j) + 1) + '.' + j[0] + ' ' + str(j[1]) + '\n'
+
 
 
 class Settings(Screen):
