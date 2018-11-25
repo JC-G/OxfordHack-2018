@@ -21,7 +21,7 @@ def push_score(result):
     with open('highscores.txt', 'w') as out:
         json.dump(data, out)
 
-def startGame():
+def startGame(EMOTION = False):
     global score,playTime
     main_loop = True
     util3d.initGLPG(util3d.scsz)
@@ -33,7 +33,6 @@ def startGame():
     our_player.position = (theTerrain.nodes[0][0],theTerrain.nodes[0][1])
     our_player.theta = math.atan2(-theTerrain.nodes[1][1]+theTerrain.nodes[0][1],-theTerrain.nodes[1][0]+theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
-    EMOTION = False
     theFaces = util3d.FaceDisplay()
     theCar = util3d.Car()
     pygame.mixer.music.load("dubstep.wav")
