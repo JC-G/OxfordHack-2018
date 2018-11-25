@@ -9,6 +9,7 @@ import random
 import EmotionRecognitionMaster.real_time_video as rtv
 import threading
 score  =0
+
 #main loop
 def startGame():
     global score
@@ -28,6 +29,7 @@ def startGame():
 
     goodSound = pygame.mixer.Sound("collect.wav")
     badSound = pygame.mixer.Sound("wrong.wav")
+    offSound = pygame.mixer.Sound("wilhelm.wav")
     class controlThread(threading.Thread):
         def __init__(self,name,counter):
             threading.Thread.__init__(self)
@@ -65,6 +67,7 @@ def startGame():
                 our_player.theta = math.atan2(theTerrain.this_node[1]-theTerrain.next_node[1],theTerrain.this_node[0]-theTerrain.next_node[0])
                 our_player.speed = 0
                 score -= 5
+                offSound.play()
 
             #print(len(theTerrain.enemies))
             for en in theTerrain.enemies:
