@@ -10,7 +10,8 @@ import EmotionRecognitionMaster.real_time_video as rtv
 import threading
 import json
 score  =0
-
+playTime = 0
+name = ""
 #main loop
 def push_score(result):
 
@@ -21,7 +22,7 @@ def push_score(result):
         json.dump(data, out)
 
 def startGame():
-    global score
+    global score,playTime
     main_loop = True
     util3d.initGLPG(util3d.scsz)
     theta = 0
@@ -59,7 +60,7 @@ def startGame():
     playerTree = util3d.Sprite3d("tree.png",0,0,0,.05)
 
     while main_loop:
-        clock.tick(60)
+        playTime+= clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 main_loop = False
@@ -164,7 +165,7 @@ def startGame():
             if theVal[0] == -1:
                 theFaces.draw("sad")
             pygame.display.flip()
-            pygame.display.set_caption("score= " + str(score))
+            pygame.display.set_caption("score= " + str(score)+" | time= " + str(playTime))
 
 
 
@@ -177,7 +178,7 @@ def startGame():
     rtv.go = False
     theThread.join()
     pygame.quit()
-    push_score((name,score))
+    push_score((name,score-playTime/50000))
 
 
 if __name__ == "__main__":
