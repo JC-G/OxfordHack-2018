@@ -19,7 +19,8 @@ def startGame():
     our_player = Player.Player()
     theTerrain = Map.Terrain()
     print(theTerrain.nodes)
-    #our_player.position = (theTerrain.nodes[0][0],-theTerrain.nodes[0][1])
+    our_player.position = (theTerrain.nodes[0][0],-theTerrain.nodes[0][1])
+    our_player.theta = math.atan2(theTerrain.nodes[1][1]-theTerrain.nodes[0][1],theTerrain.nodes[1][0]-theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
     trees = []
     EMOTION = False
@@ -35,10 +36,11 @@ def startGame():
 
     theThread = controlThread("a",1)
     theThread.start()
-    for x in theTerrain.nodes:
+    c = 1
+    #for x in theTerrain.nodes:
 
-        trees.append(util3d.Sprite3d("tree.png",x[0],0,x[1],.1))
-    #playerTree = util3d.Sprite3d("tree.png",0,0,0,.05)
+        #trees.append(util3d.Sprite3d("tree.png",x[0]*c,0,-x[1]*c,.1))
+    playerTree = util3d.Sprite3d("tree.png",0,0,0,.05)
 
     while main_loop:
         clock.tick(60)
@@ -50,6 +52,7 @@ def startGame():
         if game_state == "playing":
             theVal = rtv.value
             collData = theTerrain.pixelData[int((1+our_player.position[0])*512)][int((1+our_player.position[1])*512)]
+            theTerrain.check_nodes(our_player.position,0.1)
             if collData == 0:
                 print("LOL UR SHIT")
             turnMagnitude = 0
@@ -86,14 +89,14 @@ def startGame():
 
             glLoadIdentity()
 
-            gluLookAt(our_player.position[0]+math.cos(our_player.theta)/10, 3, our_player.position[1]+math.sin(our_player.theta)/10, our_player.position[0]-math.cos(our_player.theta)/30, 0, our_player.position[1]-math.sin(our_player.theta)/30, 0, 1,0)
+            gluLookAt(our_player.position[0]+math.cos(our_player.theta)/10, 0.05, our_player.position[1]+math.sin(our_player.theta)/10, our_player.position[0]-math.cos(our_player.theta)/30, 0, our_player.position[1]-math.sin(our_player.theta)/30, 0, 1,0)
             #glRotate(theta,0,1,0)
             theta+=0.03
             util3d.drawTerrain(theTerrain)
             for t in trees:
                 util3d.renderSprite(t)
-            #playerTree.setPos(our_player.position[0],0,our_player.position[1])
-            #util3d.renderSprite(playerTree)
+            playerTree.setPos(our_player.position[0],0,our_player.position[1])
+            util3d.renderSprite(playerTree)
             pygame.display.flip()
 
 

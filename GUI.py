@@ -1,6 +1,6 @@
 from kivy.app import App
 from kivy.lang import Builder
-
+from MAIN import startGame
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 
@@ -27,10 +27,10 @@ Builder.load_string('''
             text: 'Start Game'
             font_size: 40
             background_color: 1, 0, 0 , 1
-            on_press: print(1)
             size_hint: .4, .5
             halign: 'center'
             valign: 'center'
+            on_press: root.start()
         Button:
             text: 'High Scores'
             font_size: 40
@@ -87,7 +87,9 @@ Builder.load_string('''
 
 
 class Menu(Screen):
-    pass
+    def start(self):
+        print("STarting")
+        startGame()
 
 
 class Settings(Screen):
@@ -114,6 +116,8 @@ class Menu(GridLayout):
 
         super(Menu, self).__init__(**kwargs)
         self.cols = 3
+
+
 
 
 class MyApp(App):

@@ -132,7 +132,7 @@ def run():
         pts = run()
     else:
         colormode(255)
-        screensize(0, 0)
+        screensize(800, 800)
         # original size of canvas is 500 x 500 -- want it to be 250 x 250
         mapwidth = max([pt[0] for pt in pts]) - min([pt[0] for pt in pts])
         mapheight = max([pt[1] for pt in pts]) - min([pt[1] for pt in pts])
@@ -184,8 +184,8 @@ def run():
         img.save("track.png","png")
 
         for i in range(len(pts)):
-            pts[i][0] = pts[i][0] / imgwidth
-            pts[i][1] = pts[i][1] / imgheight
+            pts[i][0] = pts[i][0] /imgwidth*1024/(800-1.5*penwidth)
+            pts[i][1] = pts[i][1] /imgheight*1024/(800-1.5*penwidth)
 
         storedResults += pts 
 
