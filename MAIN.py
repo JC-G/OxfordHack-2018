@@ -26,7 +26,8 @@ def startGame():
     theFaces = util3d.FaceDisplay()
     theCar = util3d.Car()
 
-
+    goodSound = pygame.mixer.Sound("collect.wav")
+    badSound = pygame.mixer.Sound("wrong.wav")
     class controlThread(threading.Thread):
         def __init__(self,name,counter):
             threading.Thread.__init__(self)
@@ -70,6 +71,7 @@ def startGame():
 
                 if util3d.distance2(en.pos,our_player.position) < (en.radius+our_player.radius)**2 and not en.collected:
                     print("Collected Enemy")
+                    badSound.play()
                     #en.move(0,0.05,0)
                     en.collected = True
                     score -= 3
@@ -77,6 +79,7 @@ def startGame():
             for hp in theTerrain.happy:
 
                 if util3d.distance2(hp.pos,our_player.position) < (hp.radius + our_player.radius)**2 and not hp.collected:
+                    goodSound.play()
                     print("Collected happy")
                     #hp.move(0,0.05,0)
                     hp.collected = True

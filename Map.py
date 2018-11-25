@@ -3,6 +3,7 @@ import gentrack
 import gentrackdata
 import random
 import MAIN
+import pygame
 enemyNumber = 20
 happyNumber = 80
 treeNumber = 50
