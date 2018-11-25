@@ -4,9 +4,10 @@ class Player:
     def __init__(self):
         self.position = (0,0)
         self.velocity = (0,0)
-        self.acceleration = (0,0)
+        #self.acceleration = (0,0)
         self.speed = 0
         self.theta = 0
+        self.radius = 0.04
 
     def move(self,turnMagnitude,forwards):
         max_speed = 0.1

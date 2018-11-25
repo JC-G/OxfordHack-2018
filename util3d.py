@@ -7,17 +7,20 @@ import random
 import math
 textureArray = {}
 scsz = (800,600)
+
+def distance2(p1,p2):
+    return (p1[0]-p2[0])**2 + (p1[2]-p2[1])**2
 class Sprite3d:
     def __init__(self,fileName,x,y,z,r):
         self.imageData = makeTexture(fileName)
-
+        self.collected = False
         self.pos = (x,y,z)
         self.radius = r
         self.relativeHeight = r*self.imageData[2]/self.imageData[1]
     def setPos(self,x,y,z):
         self.pos = (x,y,z)
     def move(self,dx,dy,dz):
-        self.pos = (self.x+dx,self.y+dy,self.z+dz)
+        self.pos = (self.pos[0]+dx,self.pos[1]+dy,self.pos[2]+dz)
 
 def enablePerspective():
     glMatrixMode(GL_PROJECTION)

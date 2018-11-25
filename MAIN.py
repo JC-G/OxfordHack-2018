@@ -12,7 +12,7 @@ import threading
 #main loop
 
 def startGame():
-
+    score = 0
     main_loop = True
     util3d.initGLPG((800, 600))
     theta = 0
@@ -20,8 +20,8 @@ def startGame():
     our_player = Player.Player()
     theTerrain = Map.Terrain()
     print(theTerrain.nodes)
-    our_player.position = (theTerrain.nodes[0][0],-theTerrain.nodes[0][1])
-    our_player.theta = math.atan2(theTerrain.nodes[1][1]-theTerrain.nodes[0][1],theTerrain.nodes[1][0]-theTerrain.nodes[0][0])
+    our_player.position = (theTerrain.nodes[0][0],theTerrain.nodes[0][1])
+    our_player.theta = math.atan2(-theTerrain.nodes[1][1]+theTerrain.nodes[0][1],-theTerrain.nodes[1][0]+theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
     trees = []
     EMOTION = True
@@ -58,7 +58,30 @@ def startGame():
             collData = theTerrain.pixelData[int((1+our_player.position[0])*512)][int((1+our_player.position[1])*512)]
             theTerrain.check_nodes(our_player.position,0.1)
             if collData == 0:
-                print("LOL UR SHIT")
+                our_player.position = theTerrain.this_node
+                our_player.velocity = (0,0)
+                our_player.theta = math.atan2(theTerrain.this_node[1]-theTerrain.next_node[1],theTerrain.this_node[0]-theTerrain.next_node[0])
+                our_player.speed = 0
+
+            #print(len(theTerrain.enemies))
+            for en in theTerrain.enemies:
+
+                if util3d.distance2(en.pos,our_player.position) < (en.radius+our_player.radius)**2 and not en.collected:
+                    print("Collected Enemy")
+                    #en.move(0,0.05,0)
+                    en.collected = True
+                    score -= 1
+
+            for hp in theTerrain.happy:
+
+                if util3d.distance2(hp.pos,our_player.position) < (hp.radius + our_player.radius)**2 and not hp.collected:
+                    print("Collected happy")
+                    #hp.move(0,0.05,0)
+                    hp.collected = True
+                    score += 1
+            
+
+            #print(score)
             turnMagnitude = 0
             forwards = 0
             if EMOTION:
@@ -101,6 +124,15 @@ def startGame():
                 util3d.renderSprite(t)
             playerTree.setPos(our_player.position[0],0,our_player.position[1])
             util3d.renderSprite(playerTree)
+            for spr in theTerrain.enemies:
+                if not spr.collected:
+
+                    util3d.renderSprite(spr)
+            for spr in theTerrain.happy:
+                if not spr.collected:
+
+                    util3d.renderSprite(spr)
+
             pygame.display.flip()
 
 

@@ -188,7 +188,7 @@ def run():
 
         for i in range(len(pts)):
             pts[i][0] = pts[i][0] /imgwidth*1024/(800-1.5*penwidth)
-            pts[i][1] = pts[i][1] /imgheight*1024/(800-1.5*penwidth)
+            pts[i][1] = -pts[i][1] /imgheight*1024/(800-1.5*penwidth)
 
         storedResults += pts 
 
