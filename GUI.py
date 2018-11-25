@@ -3,8 +3,10 @@ from kivy.lang import Builder
 from MAIN import startGame
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-
+import json
 import MAIN
+
+wasd = 0
 
 Builder.load_string('''
 <Menu>:
@@ -68,6 +70,14 @@ Builder.load_string('''
         orientation: 'vertical'
         Label:
         Button:
+            text: 'Enable/Disable WASD'
+            font_size: 40
+            background_color: 1, 0, 0 , 1
+            on_press: root.changecontrols()
+            valign: "center"
+            halign: "center"
+            size_hint: .3, .1
+        Button:
             text: 'Back to Main Menu'
             font_size: 40
             background_color: 1, 0, 0 , 1
@@ -84,6 +94,13 @@ Builder.load_string('''
                 source: 'DAACTUALBG.png'
         orientation: 'vertical'
         Label:
+            text: root.highs()
+            shorten: False
+            text_size: self.width, self.height * 4
+            halign: 'center'
+            valign: 'center'
+            height: self.texture_size[1]
+            font_size: 40
         Button:
             text: 'Back to Main Menu'
             font_size: 40
@@ -120,18 +137,21 @@ Builder.load_string('''
 class Menu(Screen):
 
     def start(self):
+        global wasd
         print("Starting")
-        startGame()
-
+        startGame(not(bool(wasd)))
 
 class Settings(Screen):
-    pass
+    def changecontrols(self):
+        global wasd
+        wasd = 1 - wasd
+        print("WASD controls are now " + ("On" if wasd else "Off"))
+        return None
 
 
 class HighScores(Screen):
 
     def highs(self):
-
         names = []
         scores = []
         with open('highscores.txt') as json_file:
@@ -141,18 +161,17 @@ class HighScores(Screen):
                 scores.append(p["score"])
 
             best = []
-            for i in range(5):
-
+            for i in range(min(len(scores),5)):
                 ind = scores.index(max(scores))
                 best.append([names[ind],scores[ind]])
                 names.pop(ind)
                 scores.pop(ind)
 
-            returnText = ''
-            for j in best:
+        returnText = 'Highscores\n'
+        for j in best:
+            returnText = returnText + str(best.index(j) + 1) + '.' + j[0] + ' ' + str(j[1]) + '\n'
 
-                returnText = returnText + str(best.index(j) + 1) + '.' + j[0] + ' ' + str(j[1]) + '\n'
-
+        return returnText
 
 class Credits(Screen):
     pass
