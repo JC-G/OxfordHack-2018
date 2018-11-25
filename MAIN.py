@@ -167,6 +167,7 @@ def startGame():
     rtv.go = False
     theThread.join()
     pygame.quit()
+    push_score((name,score))
 
 
 if __name__ == "__main__":
@@ -175,7 +176,7 @@ if __name__ == "__main__":
 
 def push_score(result):
 
-    data = {name,score}
+    data = {}
     data["players"]=[]
     data["players"].append({"name":result[0],"score":result[1]})
     with open('highscores.txt', 'w') as out:
