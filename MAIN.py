@@ -22,9 +22,9 @@ def startGame():
     our_player.position = (theTerrain.nodes[0][0],theTerrain.nodes[0][1])
     our_player.theta = math.atan2(-theTerrain.nodes[1][1]+theTerrain.nodes[0][1],-theTerrain.nodes[1][0]+theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
-    trees = []
-    EMOTION = True
+    EMOTION = False
     theFaces = util3d.FaceDisplay()
+    theCar = util3d.Car()
 
 
     class controlThread(threading.Thread):
@@ -123,10 +123,10 @@ def startGame():
 
 
             util3d.drawTerrain(theTerrain)
-            for t in trees:
+            for t in theTerrain.trees:
                 util3d.renderSprite(t)
-            playerTree.setPos(our_player.position[0],0,our_player.position[1])
-            util3d.renderSprite(playerTree)
+            #playerTree.setPos(our_player.position[0],0,our_player.position[1])
+            #util3d.renderSprite(playerTree)
             for spr in theTerrain.enemies:
                 if not spr.collected:
 
@@ -136,7 +136,7 @@ def startGame():
 
                     util3d.renderSprite(spr)
 
-
+            theCar.draw(our_player.position,our_player.theta)
             util3d.enableFlat()
             glLoadIdentity()
             if theVal[0] == 1:
