@@ -23,9 +23,9 @@ class Car:
         glTexCoord(1,1)
         glVertex3f(pos[0]+self.factor*( -c*x2+s*y2),0.005,pos[1]+self.factor*( -s*x2-c*y2))
         glTexCoord(0,1)
-        glVertex3f(pos[0]+self.factor*(c*x2+s*y2),0.01,pos[1]+self.factor*(s*x2-c*y2))
+        glVertex3f(pos[0]+self.factor*(c*x2+s*y2),0.005,pos[1]+self.factor*(s*x2-c*y2))
         glTexCoord(0,0)
-        glVertex3f(pos[0]+self.factor*(c*x2-s*y2),0.01,pos[1]+self.factor*(s*x2+c*y2))
+        glVertex3f(pos[0]+self.factor*(c*x2-s*y2),0.005,pos[1]+self.factor*(s*x2+c*y2))
         glEnd()
 def distance2(p1,p2):
     return (p1[0]-p2[0])**2 + (p1[2]-p2[1])**2

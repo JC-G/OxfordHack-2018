@@ -3,9 +3,9 @@ import gentrack
 import gentrackdata
 import random
 import MAIN
-enemyNumber = 10
-happyNumber = 100
-treeNumber = 30
+enemyNumber = 20
+happyNumber = 80
+treeNumber = 50
 class Terrain:
     def __init__(self):
         self.enemies = []

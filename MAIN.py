@@ -13,7 +13,7 @@ score  =0
 def startGame():
     global score
     main_loop = True
-    util3d.initGLPG((800, 600))
+    util3d.initGLPG(util3d.scsz)
     theta = 0
     game_state = "playing"  #menu, playing, gameover...
     our_player = Player.Player()
@@ -63,7 +63,7 @@ def startGame():
                 our_player.velocity = (0,0)
                 our_player.theta = math.atan2(theTerrain.this_node[1]-theTerrain.next_node[1],theTerrain.this_node[0]-theTerrain.next_node[0])
                 our_player.speed = 0
-                score -= 1
+                score -= 5
 
             #print(len(theTerrain.enemies))
             for en in theTerrain.enemies:
@@ -72,7 +72,7 @@ def startGame():
                     print("Collected Enemy")
                     #en.move(0,0.05,0)
                     en.collected = True
-                    score -= 1
+                    score -= 3
 
             for hp in theTerrain.happy:
 
@@ -147,7 +147,7 @@ def startGame():
             if theVal[0] == -1:
                 theFaces.draw("sad")
             pygame.display.flip()
-
+            pygame.display.set_caption("score= " + str(score))
 
 
 
