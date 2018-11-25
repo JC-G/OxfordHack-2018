@@ -5,7 +5,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 
-
 Builder.load_string('''
 <Menu>:
     orientation:'horizontal'
@@ -47,6 +46,7 @@ Builder.load_string('''
             text: 'Play Call Me Maybe'
             font_size: 40
             background_color: 1, 0, 0 , 1
+            on_press: root.manager.current = 'credits'
             size_hint: .4, .5
         Label:
 <Settings>:
@@ -83,6 +83,31 @@ Builder.load_string('''
             background_color: 1, 0, 0 , 1
             on_press: root.manager.current = 'menu'
             size_hint: .3, .1
+<Credits>:
+    BoxLayout:
+        canvas.before: 
+            Color: 
+                rgb: 1, 1, 1 , 1
+            Rectangle: 
+                pos: self.pos 
+                size: self.size
+                source: 'DAACTUALBG.png'
+        orientation: 'vertical' 
+        Label:  
+        Label:
+            text:'                                      Credits to: Joseph Chambers-Graham, Gabriela van Bergen, Lyndon Hon Fan, Charalampos Kokkalis'
+            shorten: True
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
+        Label:
+    BoxLayout:    
+        Button:
+            text: 'Back to Main Menu'
+            font_size: 40
+            background_color: 1, 0, 0 , 1
+            on_press: root.manager.current = 'menu'
+            size_hint: .3, .1
 ''')
 
 
@@ -100,10 +125,15 @@ class HighScores(Screen):
     pass
 
 
+class Credits(Screen):
+    pass
+
+
 sm = ScreenManager()
 sm.add_widget(Menu(name='menu'))
 sm.add_widget(Settings(name='settings'))
 sm.add_widget(HighScores(name='highscores'))
+sm.add_widget(Credits(name='credits'))
 
 
 class Menu(GridLayout):
