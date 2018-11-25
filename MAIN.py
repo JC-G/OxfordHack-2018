@@ -43,8 +43,9 @@ while main_loop:
     #switch depending on game state
     if game_state == "playing":
         theVal = rtv.value
-        print(theTerrain.pixelData[int((1+our_player.position[0])*512)][int((1+our_player.position[1])*512)])
-
+        collData = theTerrain.pixelData[int((1+our_player.position[0])*512)][int((1+our_player.position[1])*512)]
+        if collData == 0:
+            print("LOL UR SHIT")
         turnMagnitude = 0
         forwards = 0
         if EMOTION:
