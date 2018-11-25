@@ -5,6 +5,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 
+
 Builder.load_string('''
 <Menu>:
     orientation:'horizontal'
@@ -19,7 +20,7 @@ Builder.load_string('''
     BoxLayout:
         size: min(root.size), min(root.size)
         size_hint: None, None
-        pos_hint: {'center_x': 0.675, 'center_y': 0.525}
+        pos_hint: {'center_x': 0.7, 'center_y': 0.525}
         orientation: 'vertical'
         Label:
         Button:
@@ -43,7 +44,7 @@ Builder.load_string('''
             on_press: root.manager.current = 'settings'
             size_hint: .4, .4
         Button:
-            text: 'Play Call Me Maybe'
+            text: 'Credits'
             font_size: 40
             background_color: 1, 0, 0 , 1
             on_press: root.manager.current = 'credits'
@@ -82,6 +83,7 @@ Builder.load_string('''
                 size: self.size
                 source: 'DAACTUALBG.png'
         orientation: 'vertical'
+        pos_hint: {'center_x': 0.675, 'center_y': 0.525}
         Label:
         Button:
             text: 'Back to Main Menu'
@@ -99,15 +101,14 @@ Builder.load_string('''
                 size: self.size
                 source: 'DAACTUALBG.png'
         orientation: 'vertical' 
-        Label:  
         Label:
-            text:'                                      Credits to: Joseph Chambers-Graham, Gabriela van Bergen, Lyndon Hon Fan, Charalampos Kokkalis'
-            shorten: True
-            size_hint_y: None
-            text_size: self.width, None
+            text: """Created by:\\n Joseph Chambers-Graham \\n Gabriela van Bergen \\n Lyndon Fan \\n Charalampos Kokkalis \\n\\n Credits to: \\nOmar Ayman for creating the Emotion Recognition Program\\nGustavo Maciel for the procedural generation of the track\\n\\nApologies for not playing Call Me Maybe."""
+            shorten: False
+            text_size: self.width, self.height * 4
+            halign: 'center'
+            valign: 'center'
             height: self.texture_size[1]
-        Label:
-    BoxLayout:    
+            font_size: 40
         Button:
             text: 'Back to Main Menu'
             font_size: 40
@@ -118,9 +119,35 @@ Builder.load_string('''
 
 
 class Menu(Screen):
+
     def start(self):
-        print("STarting")
+        print("Starting")
         startGame()
+
+
+    def highs(self):
+
+        names = []
+        scores = []
+        with open('highscores.txt') as json_file:
+            data = json.load(json_file)
+            for p in data['players']:
+                names.append(p["name"])
+                scores.append(p["score"])
+
+            best = []
+            for i in range(5):
+
+                ind = scores.index(max(scores))
+                best.append([names[ind],scores[ind]])
+                names.pop(ind)
+                scores.pop(ind)
+
+            returnText = ''
+            for j in best:
+
+                returnText = returnText + str(best.index(j) + 1) + '.' + j[0] + ' ' + str(j[1]) + '\n'
+
 
 
 class Settings(Screen):
