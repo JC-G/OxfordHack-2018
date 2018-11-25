@@ -20,7 +20,7 @@ Builder.load_string('''
     BoxLayout:
         size: min(root.size), min(root.size)
         size_hint: None, None
-        pos_hint: {'center_x': 0.675, 'center_y': 0.525}
+        pos_hint: {'center_x': 0.7, 'center_y': 0.525}
         orientation: 'vertical'
         Label:
         Button:
@@ -102,13 +102,13 @@ Builder.load_string('''
                 source: 'DAACTUALBG.png'
         orientation: 'vertical' 
         Label:
-            text: """Created by:\\n Joseph Chambers-Graham \\n Gabriela van Bergen \\n Lyndon Fan \\n Charalampos Kokkalis \\n\\n Credits to: \\nOmar Ayman for creating the Emotion Recognition Program\\nGustavo Maciel for the procedural generation of the track"""
+            text: """Created by:\\n Joseph Chambers-Graham \\n Gabriela van Bergen \\n Lyndon Fan \\n Charalampos Kokkalis \\n\\n Credits to: \\nOmar Ayman for creating the Emotion Recognition Program\\nGustavo Maciel for the procedural generation of the track\\n\\nApologies for not playing Call Me Maybe."""
             shorten: False
             text_size: self.width, self.height * 4
             halign: 'center'
             valign: 'center'
             height: self.texture_size[1]
-            font_size: 50
+            font_size: 40
         Button:
             text: 'Back to Main Menu'
             font_size: 40
@@ -132,7 +132,7 @@ class Menu(Screen):
         with open('highscores.txt') as json_file:
             data = json.load(json_file)
             for p in data['players']:
-                names.append(p["name"]
+                names.append(p["name"])
                 scores.append(p["score"])
 
             best = []
@@ -141,7 +141,7 @@ class Menu(Screen):
                 ind = scores.index(max(scores))
                 best.append([names[ind],scores[ind]])
                 names.pop(ind)
-                scores.pop(ind))
+                scores.pop(ind)
 
             returnText = ''
             for j in best:
