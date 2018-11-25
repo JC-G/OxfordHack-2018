@@ -11,6 +11,9 @@ from tkinter import *
 from PIL import Image
 from glob import glob
 
+
+storedResults = []
+
 # below is the code to generate the track -- don't touch if at all possible
 def dist(pta,ptb = [0,0]):
     return sqrt((pta[0]-ptb[0])**2 + (pta[1]-ptb[1])**2)
@@ -19,6 +22,8 @@ screenx = 500
 screeny = 500
 
 def run():
+    global storedResults
+    pts = []
     numOfPts = 30
     points = np.random.rand(numOfPts, 2)   # 30 random points in 2-D
     for i in range(numOfPts):
@@ -26,7 +31,6 @@ def run():
         points[i][1] = (points[i][1]-0.5)*screeny
     hull = ConvexHull(points)
 
-    pts = []
     for i in range(len(points[hull.vertices,0])):
         pts.append([points[hull.vertices,0][i],points[hull.vertices,1][i]])
 
@@ -178,7 +182,12 @@ def run():
         img.putdata(pixeldata)
         img.save("track.png","png")
 
+        print(pts)
+
+        storedResults += pts 
+
         return pts
 
 if __name__ == "__main__":
-    run()
+    print(run())
+    print(storedResults)
