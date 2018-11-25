@@ -132,7 +132,7 @@ class Menu(Screen):
         with open('highscores.txt') as json_file:
             data = json.load(json_file)
             for p in data['players']:
-                names.append(p["name"]
+                names.append(p["name"])
                 scores.append(p["score"])
 
             best = []
@@ -141,7 +141,7 @@ class Menu(Screen):
                 ind = scores.index(max(scores))
                 best.append([names[ind],scores[ind]])
                 names.pop(ind)
-                scores.pop(ind))
+                scores.pop(ind)
 
             returnText = ''
             for j in best:
