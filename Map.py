@@ -14,10 +14,10 @@ class Terrain:
         self.next_i = 1
 
     def check_nodes(self,pos,r):
-        if (self.next_node[1]-pos[1])**2 + (self.next_node[0]-pos[0])**2 < 10:
+        if (self.next_node[1]-pos[1])**2 + (self.next_node[0]-pos[0])**2 < 0.5:
             self.next_i+=1
             self.next_i %= len(self.nodes)
-            self.next_node = self.nodes[i]
+            self.next_node = self.nodes[self.next_i]
             print("Node Advanced to",self.next_i)
 
 
