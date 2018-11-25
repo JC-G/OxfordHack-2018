@@ -10,6 +10,7 @@ import EmotionRecognitionMaster.real_time_video as rtv
 import threading
 
 #main loop
+
 def startGame():
 
     main_loop = True
@@ -23,14 +24,17 @@ def startGame():
     our_player.theta = math.atan2(theTerrain.nodes[1][1]-theTerrain.nodes[0][1],theTerrain.nodes[1][0]-theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
     trees = []
-    EMOTION = False
+    EMOTION = True
+
 
     class controlThread(threading.Thread):
+
         def __init__(self,name,counter):
             threading.Thread.__init__(self)
             self.threadID = counter
             self.name = name
             self.counter = counter
+
         def run(self):
             rtv.captureFrame()
 
@@ -113,6 +117,7 @@ def startGame():
     pygame.quit()
 
 
+"""
 if __name__ == "__main__":
     startGame()
-
+"""
