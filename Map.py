@@ -4,7 +4,7 @@ import gentrackdata
 import random
 import MAIN
 enemyNumber = 10
-happyNumber = 10
+happyNumber = 100
 treeNumber = 30
 class Terrain:
     def __init__(self):
