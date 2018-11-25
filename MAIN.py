@@ -8,6 +8,7 @@ import math
 import random
 import EmotionRecognitionMaster.real_time_video as rtv
 import threading
+import json
 score  =0
 
 #main loop
@@ -174,7 +175,7 @@ if __name__ == "__main__":
 
 def push_score(result):
 
-    data = {}
+    data = {name,score}
     data["players"]=[]
     data["players"].append({"name":result[0],"score":result[1]})
     with open('highscores.txt', 'w') as out:

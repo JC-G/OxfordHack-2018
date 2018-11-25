@@ -4,7 +4,7 @@ from MAIN import startGame
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-
+import MAIN
 
 Builder.load_string('''
 <Menu>:
@@ -183,4 +183,5 @@ class MyApp(App):
 
 
 if __name__ == '__main__':
+    MAIN.name = input("Enter your Name")
     MyApp().run()
