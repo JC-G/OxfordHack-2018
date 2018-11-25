@@ -184,8 +184,8 @@ def run():
         img.save("track.png","png")
 
         for i in range(len(pts)):
-            pts[i][0] = pts[i][0] / imgwidth * 1024
-            pts[i][1] = pts[i][1] / imgheight * 1024
+            pts[i][0] = pts[i][0] / imgwidth
+            pts[i][1] = pts[i][1] / imgheight
 
         storedResults += pts 
 
