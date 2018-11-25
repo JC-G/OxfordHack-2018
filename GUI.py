@@ -125,6 +125,12 @@ class Menu(Screen):
         startGame()
 
 
+class Settings(Screen):
+    pass
+
+
+class HighScores(Screen):
+
     def highs(self):
 
         names = []
@@ -147,15 +153,6 @@ class Menu(Screen):
             for j in best:
 
                 returnText = returnText + str(best.index(j) + 1) + '.' + j[0] + ' ' + str(j[1]) + '\n'
-
-
-
-class Settings(Screen):
-    pass
-
-
-class HighScores(Screen):
-    pass
 
 
 class Credits(Screen):
