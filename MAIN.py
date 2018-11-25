@@ -8,11 +8,10 @@ import math
 import random
 import EmotionRecognitionMaster.real_time_video as rtv
 import threading
-
+score  =0
 #main loop
-
 def startGame():
-    score = 0
+    global score
     main_loop = True
     util3d.initGLPG((800, 600))
     theta = 0
@@ -23,18 +22,17 @@ def startGame():
     our_player.position = (theTerrain.nodes[0][0],theTerrain.nodes[0][1])
     our_player.theta = math.atan2(-theTerrain.nodes[1][1]+theTerrain.nodes[0][1],-theTerrain.nodes[1][0]+theTerrain.nodes[0][0])
     clock = pygame.time.Clock()
-    trees = []
-    EMOTION = True
+    EMOTION = False
+    theFaces = util3d.FaceDisplay()
+    theCar = util3d.Car()
 
 
     class controlThread(threading.Thread):
-
         def __init__(self,name,counter):
             threading.Thread.__init__(self)
             self.threadID = counter
             self.name = name
             self.counter = counter
-
         def run(self):
             rtv.captureFrame()
 
@@ -51,17 +49,21 @@ def startGame():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 main_loop = False
+                break
 
         #switch depending on game state
         if game_state == "playing":
             theVal = rtv.value
             collData = theTerrain.pixelData[int((1+our_player.position[0])*512)][int((1+our_player.position[1])*512)]
-            theTerrain.check_nodes(our_player.position,0.1)
+            if theTerrain.check_nodes(our_player.position,0.1):
+                main_loop = False
+                break
             if collData == 0:
                 our_player.position = theTerrain.this_node
                 our_player.velocity = (0,0)
                 our_player.theta = math.atan2(theTerrain.this_node[1]-theTerrain.next_node[1],theTerrain.this_node[0]-theTerrain.next_node[0])
                 our_player.speed = 0
+                score -= 1
 
             #print(len(theTerrain.enemies))
             for en in theTerrain.enemies:
@@ -79,7 +81,7 @@ def startGame():
                     #hp.move(0,0.05,0)
                     hp.collected = True
                     score += 1
-            
+
 
             #print(score)
             turnMagnitude = 0
@@ -117,13 +119,14 @@ def startGame():
             glLoadIdentity()
 
             gluLookAt(our_player.position[0]+math.cos(our_player.theta)/10, 0.05, our_player.position[1]+math.sin(our_player.theta)/10, our_player.position[0]-math.cos(our_player.theta)/30, 0, our_player.position[1]-math.sin(our_player.theta)/30, 0, 1,0)
-            #glRotate(theta,0,1,0)
-            theta+=0.03
+
+
+
             util3d.drawTerrain(theTerrain)
-            for t in trees:
+            for t in theTerrain.trees:
                 util3d.renderSprite(t)
-            playerTree.setPos(our_player.position[0],0,our_player.position[1])
-            util3d.renderSprite(playerTree)
+            #playerTree.setPos(our_player.position[0],0,our_player.position[1])
+            #util3d.renderSprite(playerTree)
             for spr in theTerrain.enemies:
                 if not spr.collected:
 
@@ -133,6 +136,16 @@ def startGame():
 
                     util3d.renderSprite(spr)
 
+            theCar.draw(our_player.position,our_player.theta)
+            util3d.enableFlat()
+            glLoadIdentity()
+            if theVal[0] == 1:
+
+                theFaces.draw("happy")
+            if theVal[0] == 0:
+                theFaces.draw("neutral")
+            if theVal[0] == -1:
+                theFaces.draw("sad")
             pygame.display.flip()
 
 
@@ -149,7 +162,6 @@ def startGame():
     pygame.quit()
 
 
-"""
 if __name__ == "__main__":
     startGame()
-"""
+

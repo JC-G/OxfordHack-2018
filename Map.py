@@ -2,12 +2,16 @@ import util3d
 import gentrack
 import gentrackdata
 import random
+import MAIN
 enemyNumber = 10
 happyNumber = 10
+treeNumber = 30
 class Terrain:
     def __init__(self):
         self.enemies = []
         self.happy = []
+        self.trees =[]
+        self.lap_count = 0
 
         gentrack.run()
         self.pixelData = gentrackdata.getPixelData()
@@ -28,7 +32,12 @@ class Terrain:
 
             self.enemies.append(util3d.Sprite3d("apple.png",pos[0]/512-1,0,pos[1]/512-1,0.01))
 
+        for x in range(treeNumber):
+            pos = (random.randint(0,1023),random.randint(0,1023))
+            while self.pixelData[pos[0]][pos[1]] != 0:
+                pos = (random.randint(0,1023),random.randint(0,1023))
 
+            self.trees.append(util3d.Sprite3d("tree.png",pos[0]/512-1,0,pos[1]/512-1,0.1))
         #print(len(self.pixelData))
 
         self.next_node = self.nodes[1]
@@ -38,10 +47,16 @@ class Terrain:
     def check_nodes(self,pos,r):
         if (self.next_node[1]-pos[1])**2 + (self.next_node[0]-pos[0])**2 < 0.3:
             self.next_i+=1
+            if self.next_i == len(self.nodes):
+                self.lap_count+=1
+                MAIN.score += 3
+                if self.lap_count == 3:
+                    return True
+
             self.next_i %= len(self.nodes)
             self.this_node = self.next_node
             self.next_node = self.nodes[self.next_i]
 
             print("Node Advanced to",self.next_i)
 
-
+            return False

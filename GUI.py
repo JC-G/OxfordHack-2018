@@ -27,7 +27,7 @@ Builder.load_string('''
             text: 'Start Game'
             font_size: 40
             background_color: 1, 0, 0 , 1
-            size_hint: .4, .5
+            size_hint: .4, .4
             halign: 'center'
             valign: 'center'
             on_press: root.start()
@@ -36,19 +36,25 @@ Builder.load_string('''
             font_size: 40
             background_color: 1, 0, 0 , 1
             on_press: root.manager.current = 'highscores'
-            size_hint: .4, .5
+            size_hint: .4, .4
         Button:
             text: 'Settings'
             font_size: 40
             background_color: 1, 0, 0 , 1
             on_press: root.manager.current = 'settings'
-            size_hint: .4, .5
+            size_hint: .4, .4
         Button:
             text: 'Credits'
             font_size: 40
             background_color: 1, 0, 0 , 1
             on_press: root.manager.current = 'credits'
-            size_hint: .4, .5
+            size_hint: .4, .4
+        Button:
+            text: 'Quit'
+            font_size: 40
+            background_color: 1, 0, 0 , 1
+            on_press: app.stop()
+            size_hint: .4, .4
         Label:
 <Settings>:
     BoxLayout:

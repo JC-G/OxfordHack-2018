@@ -7,9 +7,54 @@ import random
 import math
 textureArray = {}
 scsz = (800,600)
-
+class Car:
+    def __init__(self):
+        self.imgData = makeTexture("13528414215588.png")
+        self.factor = 0.04/math.sqrt((self.imgData[1]/2)**2+(self.imgData[2]/2)**2)
+    def draw(self,pos,t):
+        glBindTexture(GL_TEXTURE_2D,self.imgData[0])
+        c = math.cos(t)
+        s = math.sin(t)
+        x2=self.imgData[1]/2
+        y2=self.imgData[2]/2
+        glBegin(GL_QUADS)
+        glTexCoord(1,0)
+        glVertex3f(pos[0]+self.factor*(-c*x2-s*y2),0.005,pos[1]+self.factor*( -s*x2+c*y2))
+        glTexCoord(1,1)
+        glVertex3f(pos[0]+self.factor*( -c*x2+s*y2),0.005,pos[1]+self.factor*( -s*x2-c*y2))
+        glTexCoord(0,1)
+        glVertex3f(pos[0]+self.factor*(c*x2+s*y2),0.005,pos[1]+self.factor*(s*x2-c*y2))
+        glTexCoord(0,0)
+        glVertex3f(pos[0]+self.factor*(c*x2-s*y2),0.005,pos[1]+self.factor*(s*x2+c*y2))
+        glEnd()
 def distance2(p1,p2):
     return (p1[0]-p2[0])**2 + (p1[2]-p2[1])**2
+
+class FaceDisplay:
+    def __init__(self):
+        self.happyTexture = makeTexture("happyface.png")[0]
+        self.sadTexture = makeTexture("sadface.png")[0]
+        self.neutralTexture = makeTexture("neutralface.png")[0]
+
+    def draw(self,mode):
+        if mode == "happy":
+            glBindTexture(GL_TEXTURE_2D,self.happyTexture)
+        if mode == "neutral":
+            glBindTexture(GL_TEXTURE_2D,self.neutralTexture)
+        if mode == "sad":
+            glBindTexture(GL_TEXTURE_2D,self.sadTexture)
+
+        glBegin(GL_QUADS)
+
+        glTexCoord(0,0)
+        glVertex3f(-0.95,0.95,0)
+        glTexCoord(1,0)
+        glVertex3f(-0.85,0.95,0)
+        glTexCoord(1,1)
+        glVertex3f(-0.85,0.95-0.1*scsz[0]/scsz[1],0)
+        glTexCoord(0,1)
+        glVertex3f(-0.95,0.95-0.1*scsz[0]/scsz[1],0)
+        glEnd()
 class Sprite3d:
     def __init__(self,fileName,x,y,z,r):
         self.imageData = makeTexture(fileName)
@@ -31,6 +76,7 @@ def enablePerspective():
 def enableFlat():
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
+
     glMatrixMode(GL_MODELVIEW)
 
 def makeTexture(fileName):
