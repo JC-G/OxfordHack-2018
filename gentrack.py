@@ -172,6 +172,7 @@ def run():
         ts.getcanvas().postscript(file = "track.eps")
 
         img = Image.open("track.eps").convert('RGBA')
+        imgwidth, imgheight = img.size
         img = img.resize((1024,1024), Image.NEAREST)
         pixeldata = list(img.getdata())
 
@@ -182,7 +183,9 @@ def run():
         img.putdata(pixeldata)
         img.save("track.png","png")
 
-        print(pts)
+        for i in range(len(pts)):
+            pts[i][0] = pts[i][0] / imgwidth * 1024
+            pts[i][1] = pts[i][1] / imgheight * 1024
 
         storedResults += pts 
 
