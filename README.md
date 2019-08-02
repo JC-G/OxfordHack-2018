@@ -62,7 +62,7 @@ After that, to provide some additional features to the game:
 - High-scores 
 - Main Menu
 
-![Menu picture](menu here)
+![Menu picture](https://github.com/JC-G/Pythons-Disciples/blob/master/Menu.png)
 
 - Credits
 
