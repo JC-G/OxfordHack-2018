@@ -44,7 +44,7 @@ After that, to provide some additional features to the game:
 
 ### Clone
 
-- Clone this repo to your local machine using  ```link here'```
+- Clone this repo to your local machine using  ```https://github.com/JC-G/Pythons-Disciples.git```
 
 ### Setup
 
