@@ -1,5 +1,5 @@
 # Python's Disciples Game - OxfordHack 2018
-![Gameplay picture](gameplay here)
+![Gameplay picture](https://github.com/JC-G/Pythons-Disciples/blob/master/Game.png)
 
 
 A racing game in which you control your car with facial expressions and leaning.
